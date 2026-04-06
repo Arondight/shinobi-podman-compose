@@ -1,0 +1,39 @@
+networks:
+  shinobi_network:
+    driver: bridge
+
+services:
+  shinobi-mysql:
+    container_name: shinobi-mysql
+    image: mysql:5.7
+    volumes:
+      - ./db:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_DATABASE: shinobi
+      MYSQL_PASSWORD: 915cd081-006b-4f47-9233-92f679662fb4
+      MYSQL_ROOT_PASSWORD: 047a97d1-43d4-401c-9771-95da48e2263c
+      MYSQL_USER: shinobi
+    networks:
+      - shinobi_network
+    restart: unless-stopped
+
+  shinobi:
+    container_name: shinobi
+    image: registry.gitlab.com/shinobi-systems/shinobidocker:latest
+    volumes:
+      - /dev/shm/shinobi:/dev/shm/streams
+      - ./data:/home/Shinobi
+    ports:
+      - "4000:8080"
+      - "4935:1935"
+    environment:
+      DB_DATABASE: shinobi
+      DB_HOST: shinobi-mysql
+      DB_PASSWORD: 915cd081-006b-4f47-9233-92f679662fb4
+      DB_USER: shinobi
+      HOME: /home/Shinobi
+      SHINOBI_UPDATE: false
+    networks:
+      - shinobi_network
+    restart: unless-stopped
