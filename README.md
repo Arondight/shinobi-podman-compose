@@ -25,6 +25,12 @@ diff --color -Nur a/conf.json b/conf.json
     "videosDir": "__DIR__/videos",
 ```
 
+> The Chinese translation is really terrible, and there are many `undefined` elements across the dashboard.
+
+## Hardware Video Acceleration
+
+I only tested it on my `Intel Core i9-12900H` with GPU `Intel Iris Xe Graphics 96EU Mobile`. In the `Monitor Settings` pages of dashboard, set `Accelerator` to `Yes`, set `HWAccel Device` to your DRM render node (`/dev/dri/renderD128` for the 1st, `/dev/dri/renderD122` for the 2nd, etc...), and set `HWAccel Format` to `vaapi`. Make sure the `ffmpeg` arguments includes something like `-hwaccel auto -hwaccel_device /dev/dri/renderD128 -hwaccel_output_format vaapi`.
+
 ## RTMP Server
 
 To [push streams to Shinobi with RTMP](https://hub.shinobi.video/articles/view/nHglUO68J4NI2FE), run below command after shinobi startup. Then add a RTMP monitor in dashboard.

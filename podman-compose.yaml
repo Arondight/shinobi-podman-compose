@@ -20,8 +20,13 @@ services:
 
   shinobi:
     container_name: shinobi
+    # For common usage, support hardware video acceleration
     image: registry.gitlab.com/shinobi-systems/shinobidocker:latest
+    # And for NVIDIA GPU
+    #image: registry.gitlab.com/shinobi-systems/shinobidocker:latest-nvidia
     volumes:
+      # For hardware video acceleration
+      - /dev/dri:/dev/dri
       - /dev/shm/shinobi:/dev/shm/streams
       - ./data:/home/Shinobi
     ports:
