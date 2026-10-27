@@ -8,6 +8,10 @@ Shinobi is the Open Source CCTV Solution written in Node.JS. Designed with multi
 
 After deploy, visit [https://localhost:4000](https://localhost:4000) and [login to the Superuser panel](https://docs.shinobi.video/configure/first-login#link--your-first-login-to-the-superuser-panel-). Create an account, [login to the dashboard](https://docs.shinobi.video/configure/first-login#link--your-first-login-to-the-dashboard-), and [add cameras](https://docs.shinobi.video/configure/add-monitor-configuration).
 
+## Stream Buffer
+
+Update `shm_size` in [podman-compose.yaml](podman-compose.yaml) to set new stream buffer RAM size.
+
 ## Dashbord Language
 
 The [only way](https://gitlab.com/Shinobi-Systems/Shinobi/-/work_items/555#note_2980844829) to set dashboard language is to change `conf.json`.

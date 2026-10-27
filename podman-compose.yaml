@@ -5,7 +5,7 @@ networks:
 services:
   shinobi-mysql:
     container_name: shinobi-mysql
-    image: mysql:5.7
+    image: docker.io/library/mysql:5.7
     volumes:
       - ./db:/var/lib/mysql
       - ./mysql-init:/docker-entrypoint-initdb.d
@@ -27,11 +27,13 @@ services:
     volumes:
       # For hardware video acceleration
       - /dev/dri:/dev/dri
-      - /dev/shm/shinobi:/dev/shm/streams
       - ./data:/home/Shinobi
     ports:
       - "4000:8080"
       - "4935:1935"
+    # Stream buffer RAM (tunable): caps this container's PRIVATE /dev/shm
+    # tmpfs — exclusive to this container, the host cannot use it.
+    shm_size: "512m"
     environment:
       DB_DATABASE: shinobi
       DB_HOST: shinobi-mysql
